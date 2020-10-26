@@ -14,6 +14,8 @@
 		6A46E86C2541ED7D008A85A0 /* BowlingTeamPicker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A46E86A2541ED7D008A85A0 /* BowlingTeamPicker.xcdatamodeld */; };
 		6A46E86E2541ED7F008A85A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A46E86D2541ED7F008A85A0 /* Assets.xcassets */; };
 		6A46E8712541ED7F008A85A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A46E86F2541ED7F008A85A0 /* LaunchScreen.storyboard */; };
+		6A46E8792541F5D1008A85A0 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A46E8782541F5D1008A85A0 /* TableViewController.swift */; };
+		6AF344EA2546172B00FC4BDD /* BowlerInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF344E92546172B00FC4BDD /* BowlerInformationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		6A46E86D2541ED7F008A85A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A46E8702541ED7F008A85A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A46E8722541ED7F008A85A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A46E8782541F5D1008A85A0 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		6AF344E92546172B00FC4BDD /* BowlerInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BowlerInformationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +46,7 @@
 		6A46E8552541ED7D008A85A0 = {
 			isa = PBXGroup;
 			children = (
+				6AF344E82546171000FC4BDD /* View Controllers */,
 				6A46E8602541ED7D008A85A0 /* BowlingTeamPicker */,
 				6A46E85F2541ED7D008A85A0 /* Products */,
 			);
@@ -60,6 +65,7 @@
 			children = (
 				6A46E8612541ED7D008A85A0 /* AppDelegate.swift */,
 				6A46E8632541ED7D008A85A0 /* SceneDelegate.swift */,
+				6A46E8782541F5D1008A85A0 /* TableViewController.swift */,
 				6A46E8652541ED7D008A85A0 /* ViewController.swift */,
 				6A46E8672541ED7D008A85A0 /* Main.storyboard */,
 				6A46E86D2541ED7F008A85A0 /* Assets.xcassets */,
@@ -68,6 +74,14 @@
 				6A46E86A2541ED7D008A85A0 /* BowlingTeamPicker.xcdatamodeld */,
 			);
 			path = BowlingTeamPicker;
+			sourceTree = "<group>";
+		};
+		6AF344E82546171000FC4BDD /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6AF344E92546172B00FC4BDD /* BowlerInformationViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +158,8 @@
 				6A46E8662541ED7D008A85A0 /* ViewController.swift in Sources */,
 				6A46E86C2541ED7D008A85A0 /* BowlingTeamPicker.xcdatamodeld in Sources */,
 				6A46E8622541ED7D008A85A0 /* AppDelegate.swift in Sources */,
+				6A46E8792541F5D1008A85A0 /* TableViewController.swift in Sources */,
+				6AF344EA2546172B00FC4BDD /* BowlerInformationViewController.swift in Sources */,
 				6A46E8642541ED7D008A85A0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
