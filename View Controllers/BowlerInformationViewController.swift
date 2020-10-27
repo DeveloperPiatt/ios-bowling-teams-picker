@@ -10,7 +10,7 @@ import UIKit
 
 class BowlerInformationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allBowlers.count
+        return bowlers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -18,9 +18,11 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
         var cell:TableRowViewController!
         cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as? TableRowViewController
         
-        cell.nameLabel.text = allBowlers[indexPath.row]
-        cell.frameLabel.text = "---"
-        cell.fscoreLabel.text = "---"
+        let bowler = bowlers[indexPath.row]
+        
+        cell.nameLabel.text = bowler["name"]
+        cell.frameLabel.text = bowler["frame"]
+        cell.fscoreLabel.text = bowler["fscore"]
         
 //        deerNameCell.detialsInfoButton.addTarget(self, action: "showAlert:", forControlEvents:UIControlEvents.TouchUpInside)
         cell.nameButton.addTarget(self, action: #selector(showAlert(sender:)), for: UIControl.Event.touchUpInside)
@@ -31,12 +33,38 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
     
     
     var allBowlers: Array<String> = Array<String>()
+    var bowlers: [[String:String]] = []
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var addBowlerButton: UIButton!
     @IBAction func AddBowlerAction(_ sender: Any) {
+        // Create Alert
+        let dialogMessage = UIAlertController(title: "Add Bowler", message: "Enter a Name", preferredStyle: .alert)
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+            let textField = dialogMessage.textFields![0]
+            if textField.text != "" {
+//                self.allBowlers.append(textField.text!)
+                self.bowlers.append(["name":textField.text ?? "Error", "frame":"---", "fscore":"---"])
+                self.tableView.reloadData()
+            }
+        })
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
         
+        dialogMessage.addTextField { (textField) in
+            textField.text = ""
+        }
+        
+        //Add OK and Cancel button to an Alert object
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        // Present alert message to user
+        self.present(dialogMessage, animated: true, completion: nil)
     }
     @IBAction func RemoveBowlerAction(_ sender: Any) {
         // Create Alert
@@ -44,6 +72,8 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
         // Create OK button with action handler
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
             print("Ok button tapped")
+            self.bowlers = []
+            self.tableView.reloadData()
         })
         // Create Cancel button with action handlder
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
@@ -69,12 +99,20 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
     func setDummyData() {
         print("Setting Dummy Data")
         
-        if allBowlers.count == 0 {
+//        if allBowlers.count == 0 {
+//            print("Adding Bowlers")
+//            allBowlers.append("Nick")
+//            allBowlers.append("Zac")
+//            allBowlers.append("Amanda")
+//            allBowlers.append("Ryan")
+//        }
+        
+        if bowlers.count == 0 {
             print("Adding Bowlers")
-            allBowlers.append("Nick")
-            allBowlers.append("Zac")
-            allBowlers.append("Amanda")
-            allBowlers.append("Ryan")
+            bowlers.append(["name":"Nick", "frame":"---", "fscore":"---" ])
+            bowlers.append(["name":"Ryan", "frame":"---", "fscore":"---" ])
+            bowlers.append(["name":"Zac", "frame":"---", "fscore":"---" ])
+            bowlers.append(["name":"Amanda", "frame":"---", "fscore":"---" ])
         }
         
         print("Done Setting Data")
@@ -82,10 +120,6 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
     
     @objc func showAlert(sender:UIButton!)
     {
-//        let alert = UIAlertController(title: "Testing", message: "My Message", preferredStyle: UIAlertController.Style.alert)
-//        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-//
-//        self.present(alert, animated: true, completion: nil)
         
         // Create Alert
         let dialogMessage = UIAlertController(title: "Set Name", message: "Enter a Name", preferredStyle: .alert)
@@ -95,12 +129,11 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
             let textField = dialogMessage.textFields![0]
             print(sender.tag)
             
-            let aIndexPath = IndexPath(row: sender.tag, section: 0)
-            
-            let myRow = self.tableView.cellForRow(at: aIndexPath) as? TableRowViewController
-            
-            myRow?.nameLabel.text = textField.text
-            
+            var bowler = self.bowlers[sender.tag]
+            bowler["name"] = textField.text ?? "Error"
+            self.bowlers[sender.tag] = bowler
+
+            self.tableView.reloadData()
         })
         // Create Cancel button with action handlder
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
