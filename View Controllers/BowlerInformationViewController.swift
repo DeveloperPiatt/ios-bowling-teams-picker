@@ -14,9 +14,17 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell!
         
-        cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+        var cell:TableRowViewController!
+        cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as? TableRowViewController
+        
+        cell.nameLabel.text = allBowlers[indexPath.row]
+        cell.frameLabel.text = "---"
+        cell.fscoreLabel.text = "---"
+        
+//        deerNameCell.detialsInfoButton.addTarget(self, action: "showAlert:", forControlEvents:UIControlEvents.TouchUpInside)
+        cell.nameButton.addTarget(self, action: #selector(showAlert(sender:)), for: UIControl.Event.touchUpInside)
+        cell.nameButton.tag = indexPath.row
         
         return cell
     }
@@ -70,6 +78,45 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
         }
         
         print("Done Setting Data")
+    }
+    
+    @objc func showAlert(sender:UIButton!)
+    {
+//        let alert = UIAlertController(title: "Testing", message: "My Message", preferredStyle: UIAlertController.Style.alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+//
+//        self.present(alert, animated: true, completion: nil)
+        
+        // Create Alert
+        let dialogMessage = UIAlertController(title: "Set Name", message: "Enter a Name", preferredStyle: .alert)
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+            let textField = dialogMessage.textFields![0]
+            print(sender.tag)
+            
+            let aIndexPath = IndexPath(row: sender.tag, section: 0)
+            
+            let myRow = self.tableView.cellForRow(at: aIndexPath) as? TableRowViewController
+            
+            myRow?.nameLabel.text = textField.text
+            
+        })
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        
+        dialogMessage.addTextField { (textField) in
+            textField.text = ""
+        }
+        
+        //Add OK and Cancel button to an Alert object
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        // Present alert message to user
+        self.present(dialogMessage, animated: true, completion: nil)
+        
     }
     
 }
