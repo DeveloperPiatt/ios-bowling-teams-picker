@@ -8,7 +8,14 @@
 
 import UIKit
 
+extension String {
+    var isInt: Bool {
+        return Int(self) != nil
+    }
+}
+
 class BowlerInformationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bowlers.count
     }
@@ -26,6 +33,8 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
         
 //        deerNameCell.detialsInfoButton.addTarget(self, action: "showAlert:", forControlEvents:UIControlEvents.TouchUpInside)
         cell.nameButton.addTarget(self, action: #selector(showAlert(sender:)), for: UIControl.Event.touchUpInside)
+        cell.frameButton.addTarget(self, action: #selector(setFrameScore(sender:)), for: UIControl.Event.touchUpInside)
+        cell.fscoreButton.addTarget(self, action: #selector(setFinalScore(sender:)), for: UIControl.Event.touchUpInside)
         cell.nameButton.tag = indexPath.row
         
         return cell
@@ -134,6 +143,82 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
             self.bowlers[sender.tag] = bowler
 
             self.tableView.reloadData()
+        })
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        
+        dialogMessage.addTextField { (textField) in
+            textField.text = ""
+        }
+        
+        //Add OK and Cancel button to an Alert object
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        // Present alert message to user
+        self.present(dialogMessage, animated: true, completion: nil)
+        
+    }
+    
+    @objc func setFrameScore(sender:UIButton!)
+    {
+        
+        // Create Alert
+        let dialogMessage = UIAlertController(title: "4th Frame Score", message: "Enter a Score", preferredStyle: .alert)
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+            let textField = dialogMessage.textFields![0]
+            print(sender.tag)
+            
+            var bowler = self.bowlers[sender.tag]
+            
+            if textField.text?.isInt ?? false {
+                bowler["frame"] = textField.text ?? "Error"
+                self.bowlers[sender.tag] = bowler
+                self.tableView.reloadData()
+            }
+            
+            
+        })
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        
+        dialogMessage.addTextField { (textField) in
+            textField.text = ""
+        }
+        
+        //Add OK and Cancel button to an Alert object
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        // Present alert message to user
+        self.present(dialogMessage, animated: true, completion: nil)
+        
+    }
+    
+    @objc func setFinalScore(sender:UIButton!)
+    {
+        
+        // Create Alert
+        let dialogMessage = UIAlertController(title: "Final Score", message: "Enter a Score", preferredStyle: .alert)
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+            let textField = dialogMessage.textFields![0]
+            print(sender.tag)
+            
+            var bowler = self.bowlers[sender.tag]
+            
+            if textField.text?.isInt ?? false {
+                bowler["fscore"] = textField.text ?? "Error"
+                self.bowlers[sender.tag] = bowler
+                self.tableView.reloadData()
+            }
+            
+            
         })
         // Create Cancel button with action handlder
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
