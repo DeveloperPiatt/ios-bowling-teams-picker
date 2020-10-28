@@ -34,10 +34,10 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
         cell.nameButton.addTarget(self, action: #selector(showAlert(sender:)), for: UIControl.Event.touchUpInside)
         cell.frameButton.addTarget(self, action: #selector(setFrameScore(sender:)), for: UIControl.Event.touchUpInside)
         cell.fscoreButton.addTarget(self, action: #selector(setFinalScore(sender:)), for: UIControl.Event.touchUpInside)
+        
         cell.nameButton.tag = indexPath.row
         cell.frameButton.tag = indexPath.row
         cell.fscoreButton.tag = indexPath.row
-        print("Test \(indexPath.row)")
         
         return cell
     }
@@ -246,6 +246,25 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
         // Present alert message to user
         self.present(dialogMessage, animated: true, completion: nil)
         
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            bowlers.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            retagButtonsInTableRows()
+        }
+    }
+    
+    func retagButtonsInTableRows() {
+        print("MANUAL ROW REMOVAL -- RETAGGING BUTTONS")
+        for i in 0...self.tableView.numberOfRows(inSection: 0) {
+            let myIndexPath = IndexPath(row: i, section: 0)
+            let row = self.tableView.cellForRow(at: myIndexPath) as? TableRowViewController
+            row?.nameButton.tag = i
+            row?.frameButton.tag = i
+            row?.fscoreButton.tag = i
+        }
     }
     
 }
