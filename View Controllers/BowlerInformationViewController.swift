@@ -31,11 +31,13 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
         cell.frameLabel.text = bowler["frame"]
         cell.fscoreLabel.text = bowler["fscore"]
         
-//        deerNameCell.detialsInfoButton.addTarget(self, action: "showAlert:", forControlEvents:UIControlEvents.TouchUpInside)
         cell.nameButton.addTarget(self, action: #selector(showAlert(sender:)), for: UIControl.Event.touchUpInside)
         cell.frameButton.addTarget(self, action: #selector(setFrameScore(sender:)), for: UIControl.Event.touchUpInside)
         cell.fscoreButton.addTarget(self, action: #selector(setFinalScore(sender:)), for: UIControl.Event.touchUpInside)
         cell.nameButton.tag = indexPath.row
+        cell.frameButton.tag = indexPath.row
+        cell.fscoreButton.tag = indexPath.row
+        print("Test \(indexPath.row)")
         
         return cell
     }
@@ -47,6 +49,15 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var addBowlerButton: UIButton!
+    @IBAction func ClearScoresAction(_ sender: Any) {
+        for i in 0...bowlers.count-1 {
+            var bowler = bowlers[i]
+            bowler["frame"] = ""
+            bowler["fscore"] = ""
+            bowlers[i] = bowler
+        }
+        self.tableView.reloadData()
+    }
     @IBAction func AddBowlerAction(_ sender: Any) {
         // Create Alert
         let dialogMessage = UIAlertController(title: "Add Bowler", message: "Enter a Name", preferredStyle: .alert)

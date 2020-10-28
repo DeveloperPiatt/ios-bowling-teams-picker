@@ -154,6 +154,9 @@
                                 <rect key="frame" x="306" y="88" width="88" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Clear Scores"/>
+                                <connections>
+                                    <action selector="ClearScoresAction:" destination="jEZ-q3-HEC" eventType="touchUpInside" id="z1w-cy-KUe"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="frr-4Z-N1w">
                                 <rect key="frame" x="151" y="126" width="113" height="30"/>
