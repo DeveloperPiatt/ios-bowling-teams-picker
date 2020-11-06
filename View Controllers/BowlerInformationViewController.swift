@@ -60,10 +60,10 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
             print("Setting Dummy Data")
             if bowlers.count == 0 {
                 print("Adding Bowlers")
-                bowlers.append(["name":"Nick", "frame":"---", "tiebreaker":"---", "fscore":"---" ])
-                bowlers.append(["name":"Ryan", "frame":"---", "tiebreaker":"---", "fscore":"---" ])
-                bowlers.append(["name":"Zac", "frame":"---", "tiebreaker":"---", "fscore":"---" ])
-                bowlers.append(["name":"Amanda", "frame":"---", "tiebreaker":"---", "fscore":"---" ])
+                bowlers.append(["name":"Nick", "frame":"10", "tiebreaker":"---", "fscore":"---" ])
+                bowlers.append(["name":"Ryan", "frame":"20", "tiebreaker":"---", "fscore":"---" ])
+                bowlers.append(["name":"Zac", "frame":"30", "tiebreaker":"---", "fscore":"---" ])
+                bowlers.append(["name":"Amanda", "frame":"40", "tiebreaker":"---", "fscore":"---" ])
             }
             
             print("Done Setting Data")
@@ -339,7 +339,12 @@ class BowlerInformationViewController: UIViewController, UITableViewDelegate, UI
                 print("Low Man: \(lowBowler["name"] ?? "err") | \(lowBowler["frame"] ?? "err")")
             }
             
+            let newViewController = self.storyboard?.instantiateViewController(identifier: "showteams") as? ShowTeamsViewController
+            newViewController?.teams = bowlers_teams
+            self.navigationController?.pushViewController(newViewController!, animated: true)
         }
+        
+        
         
 
         //TODO: Display a popover or something that shows all the teams, in order of team with high bowler first
