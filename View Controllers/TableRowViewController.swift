@@ -12,10 +12,12 @@ class TableRowViewController: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var frameLabel: UILabel!
     @IBOutlet weak var fscoreLabel: UILabel!
+    @IBOutlet weak var tiebreakerLabel: UILabel!
     
     @IBOutlet weak var nameButton: UIButton!
     @IBOutlet weak var frameButton: UIButton!
     @IBOutlet weak var fscoreButton: UIButton!
+    @IBOutlet weak var tiebreakerButton: UIButton!
     
     
 }
